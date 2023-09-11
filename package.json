@@ -13,14 +13,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
-    "@rocketseat/eslint-config": "^2.1.0",
-    "@types/node": "^20.6.0",
-    "eslint": "^8.49.0",
-    "husky": "^8.0.3",
+    "@commitlint/cli": "17.7.1",
+    "@commitlint/config-conventional": "17.7.0",
+    "@rocketseat/eslint-config": "2.1.0",
+    "@types/node": "20.6.0",
+    "eslint": "8.49.0",
+    "husky": "8.0.3",
     "tsup": "7.2.0",
-    "tsx": "^3.12.8",
-    "typescript": "^5.2.2"
+    "tsx": "3.12.8",
+    "typescript": "5.2.2"
   }
 }
