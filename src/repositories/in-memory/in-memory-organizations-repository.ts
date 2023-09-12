@@ -3,7 +3,8 @@ import { OrganizationsRepository } from '../organizations-repository'
 import { randomUUID } from 'crypto'
 
 export class InMemoryOrganizationsRepository
-  implements OrganizationsRepository {
+  implements OrganizationsRepository
+{
   public items: Organization[] = []
 
   async findByEmail(email: string) {
