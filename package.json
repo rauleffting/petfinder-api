@@ -34,6 +34,8 @@
     "vitest": "0.34.4"
   },
   "dependencies": {
-    "@prisma/client": "5.2.0"
+    "@prisma/client": "5.2.0",
+    "@types/bcryptjs": "2.4.3",
+    "bcryptjs": "2.4.3"
   }
 }
