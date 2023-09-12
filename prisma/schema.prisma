@@ -15,7 +15,7 @@ model Organization {
   name          String
   email         String   @unique
   password_hash String
-  adress        String
+  address       String
   city          String
   state         String
   postal_code   String
