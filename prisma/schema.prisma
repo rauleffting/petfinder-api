@@ -17,6 +17,7 @@ model Organization {
   password_hash String
   adress        String
   city          String
+  state         String
   postal_code   String
   phone         String
   created_at    DateTime @default(now())
