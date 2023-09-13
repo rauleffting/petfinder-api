@@ -31,18 +31,40 @@ enum Type {
   DOG
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  BIG
+}
+
 model Pet {
-  id          String   @id @default(uuid())
+  id          Int      @id @default(autoincrement())
   name        String
   description String
   animal_type Type
-  gender      String
-  size        String
+  gender      Gender
+  size        Size
+  age         String
   breed       String
   created_at  DateTime @default(now())
 
   organization    Organization @relation(fields: [organization_id], references: [id])
   organization_id String
 
+  Photo Photo[]
+
   @@map("pets")
+}
+
+model Photo {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  pet    Pet @relation(fields: [pet_id], references: [id])
+  pet_id Int
 }
