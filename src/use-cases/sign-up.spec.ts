@@ -1,6 +1,6 @@
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { SignUpUseCase } from './signUp'
+import { SignUpUseCase } from './sign-up'
 import { compare } from 'bcryptjs'
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
 

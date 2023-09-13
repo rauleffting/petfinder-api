@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
-import { RegisterPetUseCase } from './registerPet'
+import { RegisterPetUseCase } from './register-pet'
 import { hash } from 'bcryptjs'
 import { Gender, Size, Type } from '@prisma/client'
 
