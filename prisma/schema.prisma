@@ -21,6 +21,28 @@ model Organization {
   postal_code   String
   phone         String
   created_at    DateTime @default(now())
+  Pet           Pet[]
 
-  @@map("orgs")
+  @@map("organizations")
+}
+
+enum Type {
+  CAT
+  DOG
+}
+
+model Pet {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  animal_type Type
+  gender      String
+  size        String
+  breed       String
+  created_at  DateTime @default(now())
+
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
+
+  @@map("pets")
 }
