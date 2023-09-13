@@ -18,7 +18,7 @@ describe('Sign In Use Case', () => {
       id: 'organization-01',
       name: 'Org Example',
       email: 'orgexample@example.com',
-      password_hash: String(hash('123456', 6)),
+      password_hash: await hash('123456', 6),
       address: 'Example Street, 462',
       city: 'Miami',
       state: 'Florida',
@@ -39,6 +39,27 @@ describe('Sign In Use Case', () => {
       sut.execute({
         email: 'orgexample@example.com',
         password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(InvalidCredentialsError)
+  })
+
+  it('should not be able to sign in with wrong password', async () => {
+    await organizationsRepository.create({
+      id: 'organization-01',
+      name: 'Org Example',
+      email: 'orgexample@example.com',
+      password_hash: await hash('123456', 6),
+      address: 'Example Street, 462',
+      city: 'Miami',
+      state: 'Florida',
+      postal_code: '33101',
+      phone: '58548400',
+    })
+
+    await expect(() =>
+      sut.execute({
+        email: 'orgexample@example.com',
+        password: 'wrongpassword',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
   })
