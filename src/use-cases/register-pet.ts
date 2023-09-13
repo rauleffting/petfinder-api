@@ -1,5 +1,6 @@
 import { Gender, Pet, Size, Type } from '@prisma/client'
 import { PetsRepository } from '@/repositories/pets-repository'
+import { PetWithoutOrganizationError } from './errors/pet-without-organization-error'
 
 interface RegisterPetUseCaseRequest {
   name: string
@@ -29,6 +30,10 @@ export class RegisterPetUseCase {
     breed,
     organizationId,
   }: RegisterPetUseCaseRequest): Promise<RegisterPetUseCaseResponse> {
+    if (!organizationId) {
+      throw new PetWithoutOrganizationError()
+    }
+
     const pet = await this.petsRepository.create({
       name,
       description,
