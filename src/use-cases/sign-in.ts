@@ -1,5 +1,6 @@
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { Organization } from '@prisma/client'
+import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 
 interface SignInUseCaseRequest {
   email: string
@@ -18,6 +19,10 @@ export class SignInUseCase {
     password,
   }: SignInUseCaseRequest): Promise<SignInUseCaseResponse> {
     const organization = await this.organizationsRepository.findByEmail(email)
+
+    if (!organization) {
+      throw new InvalidCredentialsError()
+    }
 
     return { organization }
   }
