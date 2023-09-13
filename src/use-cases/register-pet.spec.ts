@@ -20,7 +20,7 @@ describe('Register Pet Use Case', () => {
       id: 'organization-01',
       name: 'Org Example',
       email: 'orgexample@example.com',
-      password_hash: String(hash('123456', 6)),
+      password_hash: await hash('123456', 6),
       address: 'Example Street, 462',
       city: 'Miami',
       state: 'Florida',
