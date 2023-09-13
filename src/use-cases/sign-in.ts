@@ -1,6 +1,7 @@
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { Organization } from '@prisma/client'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
+import { compare } from 'bcryptjs'
 
 interface SignInUseCaseRequest {
   email: string
@@ -21,6 +22,15 @@ export class SignInUseCase {
     const organization = await this.organizationsRepository.findByEmail(email)
 
     if (!organization) {
+      throw new InvalidCredentialsError()
+    }
+
+    const doesPasswordMatches = await compare(
+      password,
+      organization.password_hash,
+    )
+
+    if (!doesPasswordMatches) {
       throw new InvalidCredentialsError()
     }
 
