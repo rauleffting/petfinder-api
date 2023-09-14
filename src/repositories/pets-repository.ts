@@ -11,4 +11,5 @@ export interface PetsRepository {
     age?: string,
     breed?: string,
   ): Promise<Pet[]>
+  findById(id: number): Promise<Pet>
 }
