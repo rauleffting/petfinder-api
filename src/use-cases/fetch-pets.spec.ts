@@ -6,7 +6,7 @@ import { Gender, Size, Type } from '@prisma/client'
 let petsRepository: InMemoryPetsRepository
 let sut: FetchPetsUseCase
 
-describe('Fetch Pets By Organizations Id Use Case', () => {
+describe('Fetch Pets Use Case', () => {
   beforeEach(async () => {
     petsRepository = new InMemoryPetsRepository()
     sut = new FetchPetsUseCase(petsRepository)
@@ -73,6 +73,59 @@ describe('Fetch Pets By Organizations Id Use Case', () => {
     expect(pets).toEqual([
       expect.objectContaining({ name: 'Pet 21' }),
       expect.objectContaining({ name: 'Pet 22' }),
+    ])
+  })
+
+  it('should fetch pets by optional params', async () => {
+    await petsRepository.create({
+      name: 'Romeo',
+      description:
+        'He loves to play and eat. He also enjoys affection and going for walks in parks.',
+      animal_type: Type.DOG,
+      gender: Gender.MALE,
+      size: Size.BIG,
+      age: '4',
+      breed: 'German Shepherd',
+      organization_id: 'organization-01',
+    })
+
+    await petsRepository.create({
+      name: 'Shakespeare',
+      description:
+        'He loves to play and eat. He also enjoys affection and going for walks in parks.',
+      animal_type: Type.DOG,
+      gender: Gender.MALE,
+      size: Size.BIG,
+      age: '4',
+      breed: 'German Shepherd',
+      organization_id: 'organization-01',
+    })
+
+    await petsRepository.create({
+      name: 'Hamlet',
+      description:
+        'He loves to play and eat. He also enjoys affection and going for walks in parks.',
+      animal_type: Type.DOG,
+      gender: Gender.MALE,
+      size: Size.BIG,
+      age: '3',
+      breed: 'Golden Retriever',
+      organization_id: 'organization-01',
+    })
+
+    const organizationsId = ['organization-01']
+
+    const { pets } = await sut.execute({
+      organizationsId,
+      page: 1,
+      age: '4',
+      breed: 'German Shepherd',
+    })
+
+    expect(pets).toHaveLength(2)
+    expect(pets).toEqual([
+      expect.objectContaining({ name: 'Romeo' }),
+      expect.objectContaining({ name: 'Shakespeare' }),
     ])
   })
 })
