@@ -46,4 +46,33 @@ describe('Fetch Pets By Organizations Id Use Case', () => {
     expect(pets).toHaveLength(1)
     expect(pets).toEqual([expect.objectContaining({ name: 'Juliet' })])
   })
+
+  it('should be able to fetch paginated pet search', async () => {
+    for (let i = 1; i <= 22; i++) {
+      await petsRepository.create({
+        name: `Pet ${i}`,
+        description:
+          'He loves to play and eat. He also enjoys affection and going for walks in parks.',
+        animal_type: Type.DOG,
+        gender: Gender.MALE,
+        size: Size.BIG,
+        age: '4',
+        breed: 'German Shepherd',
+        organization_id: 'organization-01',
+      })
+    }
+
+    const organizationsId = ['organization-01']
+
+    const { pets } = await sut.execute({
+      organizationsId,
+      page: 2,
+    })
+
+    expect(pets).toHaveLength(2)
+    expect(pets).toEqual([
+      expect.objectContaining({ name: 'Pet 21' }),
+      expect.objectContaining({ name: 'Pet 22' }),
+    ])
+  })
 })
