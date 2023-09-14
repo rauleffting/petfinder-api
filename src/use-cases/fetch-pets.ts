@@ -1,22 +1,22 @@
 import { PetsRepository } from '@/repositories/pets-repository'
 import { Pet } from '@prisma/client'
 
-interface FetchPetsByOrganizationsIdUseCaseRequest {
+interface FetchPetsUseCaseRequest {
   organizationsId: string[]
   page: number
 }
 
-interface FetchPetsByOrganizationsIdUseCaseResponse {
+interface FetchPetsUseCaseResponse {
   pets: Pet[]
 }
 
-export class FetchPetsByOrganizationsIdUseCase {
+export class FetchPetsUseCase {
   constructor(private petsRepository: PetsRepository) {}
 
   async execute({
     organizationsId,
     page,
-  }: FetchPetsByOrganizationsIdUseCaseRequest): Promise<FetchPetsByOrganizationsIdUseCaseResponse> {
+  }: FetchPetsUseCaseRequest): Promise<FetchPetsUseCaseResponse> {
     const pets = await this.petsRepository.findManyByOrganizationsId(
       organizationsId,
       page,

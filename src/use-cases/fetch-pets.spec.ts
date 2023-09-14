@@ -1,15 +1,15 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
-import { FetchPetsByOrganizationsIdUseCase } from './fetch-pets-by-organizations-id'
+import { FetchPetsUseCase } from './fetch-pets'
 import { Gender, Size, Type } from '@prisma/client'
 
 let petsRepository: InMemoryPetsRepository
-let sut: FetchPetsByOrganizationsIdUseCase
+let sut: FetchPetsUseCase
 
 describe('Fetch Pets By Organizations Id Use Case', () => {
   beforeEach(async () => {
     petsRepository = new InMemoryPetsRepository()
-    sut = new FetchPetsByOrganizationsIdUseCase(petsRepository)
+    sut = new FetchPetsUseCase(petsRepository)
   })
 
   it('should fetch pets by organizations id', async () => {
