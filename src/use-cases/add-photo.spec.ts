@@ -23,4 +23,10 @@ describe('Add Photo Use Case', () => {
 
     expect(photo.url).toBe('https://example.com/image1.jpg')
   })
+
+  it('should provide a pet id to add photo', async () => {
+    await expect(
+      (sut.execute as any)('https://example.com/image1.jpg'),
+    ).rejects.toBeInstanceOf(PhotoWithoutPetIdError)
+  })
 })
