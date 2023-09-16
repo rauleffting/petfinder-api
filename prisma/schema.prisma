@@ -67,4 +67,6 @@ model Photo {
 
   pet    Pet @relation(fields: [pet_id], references: [id])
   pet_id Int
+
+  @@map("photos")
 }
