@@ -1,5 +1,5 @@
 import { Photo } from '@prisma/client'
-import { PhotoRepository } from '@/repositories/photo-repository'
+import { PhotosRepository } from '@/repositories/photos-repository'
 import { PhotoWithoutPetIdError } from './errors/photo-without-pet-id-error'
 
 interface AddPhotoUseCaseRequest {
@@ -12,7 +12,7 @@ interface AddPhotoUseCaseResponse {
 }
 
 export class AddPhotoUseCase {
-  constructor(private photoRepository: PhotoRepository) {}
+  constructor(private photoRepository: PhotosRepository) {}
 
   async execute({
     url,

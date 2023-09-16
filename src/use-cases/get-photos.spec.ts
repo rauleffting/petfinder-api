@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InMemoryPhotoRepository } from '@/repositories/in-memory/in-memory-photo-repository'
+import { InMemoryPhotosRepository } from '@/repositories/in-memory/in-memory-photos-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { GetPhotosUseCase } from './get-photos'
 
-let photoRepository: InMemoryPhotoRepository
+let photoRepository: InMemoryPhotosRepository
 let sut: GetPhotosUseCase
 
 describe('Add Photo Use Case', () => {
   beforeEach(async () => {
-    photoRepository = new InMemoryPhotoRepository()
+    photoRepository = new InMemoryPhotosRepository()
     sut = new GetPhotosUseCase(photoRepository)
   })
 

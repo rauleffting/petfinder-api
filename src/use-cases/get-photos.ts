@@ -1,8 +1,8 @@
 import { Photo } from '@prisma/client'
-import { PhotoRepository } from '@/repositories/photo-repository'
+import { PhotosRepository } from '@/repositories/photos-repository'
 
 export class GetPhotosUseCase {
-  constructor(private photoRepository: PhotoRepository) {}
+  constructor(private photoRepository: PhotosRepository) {}
 
   async execute(petId: number): Promise<Photo[]> {
     const photos = await this.photoRepository.getPhotos(petId)

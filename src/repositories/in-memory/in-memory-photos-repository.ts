@@ -1,8 +1,8 @@
 import { Photo, Prisma } from '@prisma/client'
 import { randomInt } from 'crypto'
-import { PhotoRepository } from '../photo-repository'
+import { PhotosRepository } from '../photos-repository'
 
-export class InMemoryPhotoRepository implements PhotoRepository {
+export class InMemoryPhotosRepository implements PhotosRepository {
   public items: Photo[] = []
 
   async getPhotos(petId: number) {
