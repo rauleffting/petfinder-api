@@ -27,6 +27,7 @@
     "@commitlint/cli": "17.7.1",
     "@commitlint/config-conventional": "17.7.0",
     "@rocketseat/eslint-config": "2.1.0",
+    "@types/bcryptjs": "2.4.3",
     "@types/node": "20.6.0",
     "@types/supertest": "2.0.12",
     "@vitest/coverage-v8": "0.34.4",
@@ -46,12 +47,10 @@
     "@fastify/cookie": "9.0.4",
     "@fastify/jwt": "7.2.1",
     "@prisma/client": "5.2.0",
-    "@types/bcryptjs": "2.4.3",
-    "@types/multer": "1.4.7",
     "bcryptjs": "2.4.3",
     "dotenv": "16.3.1",
     "fastify": "4.23.2",
-    "multer": "1.4.5-lts.1",
+    "fastify-multer": "2.0.3",
     "zod": "3.22.2"
   }
 }
