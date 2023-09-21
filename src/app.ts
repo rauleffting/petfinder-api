@@ -5,6 +5,8 @@ import fastifyJwt from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
 import { organizationsRoutes } from './http/controllers/organizations/routes'
 import { petsRoutes } from './http/controllers/pets/routes'
+import multer from 'fastify-multer'
+import { photosRoutes } from './http/controllers/photos/routes'
 
 export const app = fastify()
 
@@ -21,8 +23,11 @@ app.register(fastifyJwt, {
 
 app.register(fastifyCookie)
 
+app.register(multer.contentParser)
+
 app.register(organizationsRoutes)
 app.register(petsRoutes)
+app.register(photosRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
