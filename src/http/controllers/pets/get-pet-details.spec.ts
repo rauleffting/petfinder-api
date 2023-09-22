@@ -69,7 +69,6 @@ describe('Get Pet Details (e2e)', () => {
     })
 
     const response = await request(app.server).get(`/pets/${juliet.id}`).send()
-    console.log(response.body.petWithPhotos.organizationDetails)
 
     expect(response.statusCode).toEqual(200)
     expect(response.body.petWithPhotos.name).toBe('Juliet')
