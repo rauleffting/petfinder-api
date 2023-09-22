@@ -1,18 +1,18 @@
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { hash } from 'bcryptjs'
-import { FetchOrganizationByIdUseCase } from './get-organization-details'
+import { GetOrganizationDetailsUseCase } from './get-organization-details'
 
 let organizationsRepository: InMemoryOrganizationsRepository
-let sut: FetchOrganizationByIdUseCase
+let sut: GetOrganizationDetailsUseCase
 
-describe('Fetch Organizations By City Use Case', () => {
+describe('Get Organization By Id Use Case', () => {
   beforeEach(() => {
     organizationsRepository = new InMemoryOrganizationsRepository()
-    sut = new FetchOrganizationByIdUseCase(organizationsRepository)
+    sut = new GetOrganizationDetailsUseCase(organizationsRepository)
   })
 
-  it('should register an organization', async () => {
+  it('should get an organization by id', async () => {
     const organization = await organizationsRepository.create({
       name: 'Org 01',
       email: 'org01@example.com',

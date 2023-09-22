@@ -2,7 +2,7 @@ import { OrganizationsRepository } from '@/repositories/organizations-repository
 import { Organization } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-export class FetchOrganizationByIdUseCase {
+export class GetOrganizationDetailsUseCase {
   constructor(private organizationsRepository: OrganizationsRepository) {}
 
   async execute(id: string): Promise<Organization> {
