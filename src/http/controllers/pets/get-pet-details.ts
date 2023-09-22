@@ -1,3 +1,4 @@
+import { makeGetOrganizationDetailsUseCase } from '@/use-cases/factories/make-get-organization-details-use-case'
 import { makeGetPetDetailsUseCase } from '@/use-cases/factories/make-get-pet-details-use-case'
 import { makeGetPhotosUseCase } from '@/use-cases/factories/make-get-photos-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
@@ -22,9 +23,16 @@ export async function getPetDetails(
 
     const photos = await getPhotosUseCase.execute(petId)
 
+    const getOrganizationDetailsUseCase = makeGetOrganizationDetailsUseCase()
+
+    const organizationDetails = await getOrganizationDetailsUseCase.execute(
+      pet.organization_id,
+    )
+
     const petWithPhotos = {
       ...pet,
       photos,
+      organizationDetails,
     }
 
     return await reply.status(200).send({ petWithPhotos })

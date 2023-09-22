@@ -30,6 +30,16 @@ export class InMemoryOrganizationsRepository
     return organization
   }
 
+  async findById(id: string) {
+    const organization = this.items.find((item) => item.id === id)
+
+    if (!organization) {
+      throw new ResourceNotFoundError()
+    }
+
+    return organization
+  }
+
   async create(data: Prisma.OrganizationCreateInput) {
     const organization = {
       id: randomUUID(),
