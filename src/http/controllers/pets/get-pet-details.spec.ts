@@ -13,7 +13,7 @@ describe('Get Pet Details (e2e)', () => {
     await app.close()
   })
 
-  it('should get pet detail', async () => {
+  it('should get pet details', async () => {
     const org = await prisma.organization.create({
       data: {
         name: 'Org 01',
@@ -69,6 +69,7 @@ describe('Get Pet Details (e2e)', () => {
     })
 
     const response = await request(app.server).get(`/pets/${juliet.id}`).send()
+    console.log(response.body.petWithPhotos.organizationDetails)
 
     expect(response.statusCode).toEqual(200)
     expect(response.body.petWithPhotos.name).toBe('Juliet')
@@ -76,5 +77,8 @@ describe('Get Pet Details (e2e)', () => {
       expect.objectContaining({ url: 'https://example.com/image1.jpg' }),
       expect.objectContaining({ url: 'https://example.com/image2.jpg' }),
     ])
+    expect(response.body.petWithPhotos.organizationDetails.phone).toBe(
+      '58548400',
+    )
   })
 })
