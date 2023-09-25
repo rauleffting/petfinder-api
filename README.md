@@ -41,9 +41,9 @@ Setup
 Routes
 ------
 
-#### Organizations routes
-
 To test all routes easily, run the application and use Swagger at http://localhost:3333/documentation.
+
+#### Organizations routes
 
 * `POST - /signup`
 
