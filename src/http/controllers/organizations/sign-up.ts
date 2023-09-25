@@ -37,5 +37,7 @@ export async function signUp(request: FastifyRequest, reply: FastifyReply) {
     }
   }
 
-  return await reply.status(201).send()
+  return await reply
+    .status(201)
+    .send({ message: 'Organization registered successfully.' })
 }
