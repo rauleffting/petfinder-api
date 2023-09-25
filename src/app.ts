@@ -7,8 +7,22 @@ import { organizationsRoutes } from './http/controllers/organizations/routes'
 import { petsRoutes } from './http/controllers/pets/routes'
 import multer from 'fastify-multer'
 import { photosRoutes } from './http/controllers/photos/routes'
+import { fastifySwagger } from '@fastify/swagger'
+import { fastifySwaggerUi } from '@fastify/swagger-ui'
 
 export const app = fastify()
+
+app.register(fastifySwagger, {
+  mode: 'static',
+  specification: {
+    path: 'src/swagger.json',
+    baseDir: '',
+  },
+})
+
+app.register(fastifySwaggerUi, {
+  routePrefix: '/documentation',
+})
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
