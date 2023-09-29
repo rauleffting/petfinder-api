@@ -12,11 +12,11 @@ describe('Add Photo (e2e)', () => {
 
   afterAll(async () => {
     await app.close()
-    const files = await fs.readdir('uploads')
+    const files = await fs.readdir('tmp')
 
     if (files.length > 0) {
       const lastFile = files[files.length - 1]
-      await fs.unlink(`uploads/${lastFile}`)
+      await fs.unlink(`tmp/${lastFile}`)
     }
   })
 
