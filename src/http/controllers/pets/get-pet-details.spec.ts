@@ -54,28 +54,19 @@ describe('Get Pet Details (e2e)', () => {
       },
     })
 
-    await prisma.photo.create({
-      data: {
-        url: 'https://example.com/image1.jpg',
-        pet_id: juliet.id,
-      },
-    })
+    await request(app.server)
+      .post(`/pets/${juliet.id}/photos`)
+      .attach('photo', 'cat.jpeg')
 
-    await prisma.photo.create({
-      data: {
-        url: 'https://example.com/image2.jpg',
-        pet_id: juliet.id,
-      },
-    })
+    await request(app.server)
+      .post(`/pets/${juliet.id}/photos`)
+      .attach('photo', 'cat.jpeg')
 
     const response = await request(app.server).get(`/pets/${juliet.id}`).send()
 
     expect(response.statusCode).toEqual(200)
     expect(response.body.petWithPhotos.name).toBe('Juliet')
-    expect(response.body.petWithPhotos.photos).toEqual([
-      expect.objectContaining({ url: 'https://example.com/image1.jpg' }),
-      expect.objectContaining({ url: 'https://example.com/image2.jpg' }),
-    ])
+    expect(response.body.petWithPhotos.photos).toHaveLength(2)
     expect(response.body.petWithPhotos.organizationDetails.phone).toBe(
       '58548400',
     )

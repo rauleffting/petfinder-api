@@ -1,5 +1,5 @@
 import { Photo, Prisma } from '@prisma/client'
-import { randomInt, randomUUID } from 'crypto'
+import { randomUUID } from 'crypto'
 import { PhotosRepository } from '../photos-repository'
 
 export class InMemoryPhotosRepository implements PhotosRepository {
