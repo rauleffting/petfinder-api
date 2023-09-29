@@ -16,18 +16,18 @@ describe('Add Photo Use Case', () => {
     const petId = 123456
 
     await photoRepository.addPhoto({
-      url: 'https://example.com/image1.jpg',
+      id: 'dsfa-dasfas-fdsafd-saf',
       pet_id: petId,
     })
 
     await photoRepository.addPhoto({
-      url: 'https://example.com/image2.jpg',
+      id: 'sdfsf-sdfa-dsafa-fda',
       pet_id: petId,
     })
 
     const photos = await sut.execute(petId)
 
     expect(photos).toHaveLength(2)
-    expect(photos[1].url).toBe('https://example.com/image2.jpg')
+    expect(photos[1].id).toBe('sdfsf-sdfa-dsafa-fda')
   })
 })

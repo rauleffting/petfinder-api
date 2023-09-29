@@ -1,5 +1,5 @@
 import { Photo, Prisma } from '@prisma/client'
-import { randomInt } from 'crypto'
+import { randomUUID } from 'crypto'
 import { PhotosRepository } from '../photos-repository'
 
 export class InMemoryPhotosRepository implements PhotosRepository {
@@ -13,8 +13,7 @@ export class InMemoryPhotosRepository implements PhotosRepository {
 
   async addPhoto(data: Prisma.PhotoUncheckedCreateInput) {
     const photo = {
-      id: data.id ?? randomInt(1, 999999999),
-      url: data.url,
+      id: data.id ?? randomUUID(),
       pet_id: data.pet_id,
     }
 

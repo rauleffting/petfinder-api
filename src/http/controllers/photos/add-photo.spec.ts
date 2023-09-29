@@ -3,7 +3,6 @@ import { app } from '@/app'
 import request from 'supertest'
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
-import fs from 'fs/promises'
 
 describe('Add Photo (e2e)', () => {
   beforeAll(async () => {
@@ -12,12 +11,6 @@ describe('Add Photo (e2e)', () => {
 
   afterAll(async () => {
     await app.close()
-    const files = await fs.readdir('tmp')
-
-    if (files.length > 0) {
-      const lastFile = files[files.length - 1]
-      await fs.unlink(`tmp/${lastFile}`)
-    }
   })
 
   it('should add photo to a pet', async () => {

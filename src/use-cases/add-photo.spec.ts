@@ -17,11 +17,11 @@ describe('Add Photo Use Case', () => {
     const petId = 123456
 
     const { photo } = await sut.execute({
-      url: 'https://example.com/image1.jpg',
+      photoId: 'feqf-qefq-eqfq-efqwf',
       petId,
     })
 
-    expect(photo.url).toBe('https://example.com/image1.jpg')
+    expect(photo.id).toBe('feqf-qefq-eqfq-efqwf')
   })
 
   it('should provide a pet id to add photo', async () => {
