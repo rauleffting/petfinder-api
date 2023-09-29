@@ -3,7 +3,7 @@ import { PhotosRepository } from '@/repositories/photos-repository'
 import { PhotoWithoutPetIdError } from './errors/photo-without-pet-id-error'
 
 interface AddPhotoUseCaseRequest {
-  url: string
+  photoId: string
   petId: number
 }
 
@@ -15,7 +15,7 @@ export class AddPhotoUseCase {
   constructor(private photoRepository: PhotosRepository) {}
 
   async execute({
-    url,
+    photoId,
     petId,
   }: AddPhotoUseCaseRequest): Promise<AddPhotoUseCaseResponse> {
     if (!petId) {
@@ -23,7 +23,7 @@ export class AddPhotoUseCase {
     }
 
     const photo = await this.photoRepository.addPhoto({
-      url,
+      id: photoId,
       pet_id: petId,
     })
 

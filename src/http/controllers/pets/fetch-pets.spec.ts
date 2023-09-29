@@ -56,14 +56,14 @@ describe('Fetch Pets (e2e)', () => {
 
     await prisma.photo.create({
       data: {
-        url: 'https://example.com/image1.jpg',
+        id: '1213-1231-asfaf-afsaf',
         pet_id: juliet.id,
       },
     })
 
     await prisma.photo.create({
       data: {
-        url: 'https://example.com/image2.jpg',
+        id: 'asdad-asdad-fgreg-ger',
         pet_id: juliet.id,
       },
     })
@@ -78,9 +78,6 @@ describe('Fetch Pets (e2e)', () => {
     expect(response.body.petsWithPhotos).toEqual([
       expect.objectContaining({ name: 'Juliet' }),
     ])
-    expect(response.body.petsWithPhotos[0].photos).toEqual([
-      expect.objectContaining({ url: 'https://example.com/image1.jpg' }),
-      expect.objectContaining({ url: 'https://example.com/image2.jpg' }),
-    ])
+    expect(response.body.petsWithPhotos[0].photos).toHaveLength(2)
   })
 })
