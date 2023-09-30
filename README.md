@@ -44,7 +44,7 @@ Setup
 Routes
 ------
 
-To test all routes easily, run the application and use Swagger at http://localhost:3333/documentation.
+To test all routes easily, access the [deployed app](http://15.228.47.225/documentation/), or run the application and use Swagger at http://localhost:3333/documentation.
 
 #### Organizations routes
 
