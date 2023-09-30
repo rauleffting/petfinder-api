@@ -3,3 +3,4 @@ coverage
 build
 .env
 .DS_Store
+tmp/*
