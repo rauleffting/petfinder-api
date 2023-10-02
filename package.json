@@ -46,6 +46,7 @@
   "dependencies": {
     "@fastify/cookie": "9.0.4",
     "@fastify/jwt": "7.2.1",
+    "@fastify/rate-limit": "8.0.3",
     "@fastify/redis": "6.1.1",
     "@fastify/swagger": "8.10.1",
     "@fastify/swagger-ui": "1.9.3",
