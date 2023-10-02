@@ -11,6 +11,7 @@ import { fastifySwagger } from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import fastifyRedis from '@fastify/redis'
 import fastifyRateLimit from '@fastify/rate-limit'
+import cors from '@fastify/cors'
 
 export const app = fastify()
 
@@ -26,6 +27,8 @@ app.register(fastifyRateLimit, {
   timeWindow: '5 seconds',
   redis: app.redis,
 })
+
+app.register(cors)
 
 app.register(fastifySwagger, {
   mode: 'static',
