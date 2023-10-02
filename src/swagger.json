@@ -235,8 +235,7 @@
             "schema": {
               "type": "integer",
               "minimum": 1
-            },
-            "default": 1
+            }
           },
           {
             "name": "animalType",
@@ -505,8 +504,7 @@
                 "type": "object",
                 "properties": {
                   "photo": {
-                    "type": "file",
-                    "required": true
+                    "type": "array"
                   }
                 }
               }
