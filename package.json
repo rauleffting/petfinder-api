@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@fastify/cookie": "9.0.4",
+    "@fastify/cors": "8.4.0",
     "@fastify/jwt": "7.2.1",
     "@fastify/swagger": "8.10.1",
     "@fastify/swagger-ui": "1.9.3",

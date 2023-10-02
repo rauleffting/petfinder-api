@@ -9,8 +9,11 @@ import multer from 'fastify-multer'
 import { photosRoutes } from './http/controllers/photos/routes'
 import { fastifySwagger } from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
+import cors from '@fastify/cors'
 
 export const app = fastify()
+
+app.register(cors)
 
 app.register(fastifySwagger, {
   mode: 'static',
