@@ -9,3 +9,8 @@ services:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=petfinderapi
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
