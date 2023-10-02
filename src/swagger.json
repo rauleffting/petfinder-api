@@ -486,14 +486,16 @@
     },
     "/pets/{petId}/photos": {
       "post": {
-        "summary": "Adds a photo to a pet.",
+        "summary": "Add a photo",
         "parameters": [
           {
             "name": "petId",
             "in": "path",
+            "description": "ID of the pet",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -504,7 +506,8 @@
                 "type": "object",
                 "properties": {
                   "photo": {
-                    "type": "array"
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -513,10 +516,22 @@
         },
         "responses": {
           "201": {
-            "description": "Photo added successfully."
+            "description": "Photo added successfully"
           },
           "409": {
-            "description": "An error occurred while adding the photo."
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
