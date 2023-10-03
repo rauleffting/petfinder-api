@@ -9,21 +9,20 @@ import multer from 'fastify-multer'
 import { photosRoutes } from './http/controllers/photos/routes'
 import { fastifySwagger } from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
-import fastifyRedis from '@fastify/redis'
+import { Redis } from 'ioredis'
 import fastifyRateLimit from '@fastify/rate-limit'
 
 export const app = fastify()
 
-app.register(fastifyRedis, {
-  host: env.REDIS_HOST,
-  port: env.REDIS_PORT,
-  family: 4,
-})
-
 app.register(fastifyRateLimit, {
   max: 100,
   timeWindow: '1 minute',
-  redis: app.redis,
+  redis: new Redis({
+    port: env.REDIS_PORT,
+    host: env.REDIS_HOST,
+    connectTimeout: 500,
+    maxRetriesPerRequest: 1,
+  }),
 })
 
 app.register(fastifySwagger, {
