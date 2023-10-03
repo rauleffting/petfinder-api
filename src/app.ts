@@ -3,14 +3,16 @@ import { ZodError } from 'zod'
 import fastify from 'fastify'
 import fastifyJwt from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
-import { organizationsRoutes } from './http/controllers/organizations/routes'
-import { petsRoutes } from './http/controllers/pets/routes'
-import multer from 'fastify-multer'
-import { photosRoutes } from './http/controllers/photos/routes'
 import { fastifySwagger } from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import { Redis } from 'ioredis'
 import fastifyRateLimit from '@fastify/rate-limit'
+import multer from 'fastify-multer'
+import { photosRoutes } from './http/controllers/photos/routes'
+import { organizationsRoutes } from './http/controllers/organizations/routes'
+import { petsRoutes } from './http/controllers/pets/routes'
+import Sentry from '@immobiliarelabs/fastify-sentry'
+import { ProfilingIntegration } from '@sentry/profiling-node'
 
 export const app = fastify()
 
@@ -56,7 +58,14 @@ app.register(organizationsRoutes)
 app.register(petsRoutes)
 app.register(photosRoutes)
 
-app.setErrorHandler((error, _, reply) => {
+app.register(Sentry, {
+  dsn: env.SENTRY_DNS,
+  integrations: [new ProfilingIntegration()],
+  tracesSampleRate: 0.5,
+  profilesSampleRate: 0.5,
+})
+
+app.setErrorHandler((error, request, reply) => {
   if (error instanceof ZodError) {
     return reply
       .status(400)
@@ -66,7 +75,7 @@ app.setErrorHandler((error, _, reply) => {
   if (env.NODE_ENV !== 'production') {
     console.error(error)
   } else {
-    // Here we should log to an external tool like DataDog/NewRelic/Sentry
+    app.Sentry.captureException(error)
   }
 
   return reply.status(500).send({ message: 'Internal server error.' })
