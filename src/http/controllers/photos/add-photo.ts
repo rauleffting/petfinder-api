@@ -2,7 +2,7 @@ import { makeAddPhotoUseCase } from '@/use-cases/factories/make-add-photo-use-ca
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import fs from 'fs'
-import AWS from 'aws-sdk'
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { env } from '@/env'
 import { randomUUID } from 'crypto'
 
@@ -35,18 +35,23 @@ export async function addPhoto(request: FastifyRequest, reply: FastifyReply) {
       photoId,
     })
 
-    const s3 = new AWS.S3({
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    const client = new S3Client({
+      region: env.AWS_REGION,
+      credentials: {
+        accessKeyId: env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      },
     })
 
-    const uploadParams = {
+    const input = {
       Bucket: env.AWS_BUCKET,
       Key: photoId,
       Body: fs.createReadStream(photo.path),
     }
 
-    await s3.upload(uploadParams).promise()
+    const command = new PutObjectCommand(input)
+
+    await client.send(command)
 
     fs.unlinkSync(photo.path)
   } catch (error) {
