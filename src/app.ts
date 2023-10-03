@@ -16,10 +16,8 @@ export const app = fastify()
 
 app.register(fastifyRedis, {
   host: env.REDIS_HOST,
-  password: env.REDIS_PASSWORD,
   port: env.REDIS_PORT,
   family: 4,
-  maxRetriesPerRequest: 40,
 })
 
 app.register(fastifyRateLimit, {

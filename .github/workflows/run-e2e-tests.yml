@@ -33,4 +33,3 @@ jobs:
           AWS_BUCKET: petfinder-s3
           REDIS_HOST: localhost
           REDIS_PORT: 6379
-          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
