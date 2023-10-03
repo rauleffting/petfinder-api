@@ -10,7 +10,6 @@ const envSchema = z.object({
   AWS_BUCKET: z.string(),
   REDIS_HOST: z.string(),
   REDIS_PORT: z.coerce.number(),
-  REDIS_PASSWORD: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
