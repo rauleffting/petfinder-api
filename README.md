@@ -32,6 +32,12 @@ Technical Features
 *   **AWS S3**: AWS S3 is used to store uploaded photos.
 *   **Swagger**: Swagger allows you to test your API endpoints without having to write any code.
 
+Security
+--------
+
+*   **Fastify Rate Limit**: The API uses Redis with [Fastify Rate Limit](https://github.com/fastify/fastify-rate-limit/tree/master) to prevent DDOS attacks.
+*   **Zod**: [Zod](https://zod.dev/) provides a schema-based validation to ensure data conforms to a specified format and to assist in preventing data injection.
+
 Setup
 -----
 
