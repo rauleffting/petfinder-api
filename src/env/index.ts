@@ -11,6 +11,7 @@ const envSchema = z.object({
   AWS_REGION: z.string(),
   REDIS_HOST: z.string(),
   REDIS_PORT: z.coerce.number(),
+  SENTRY_DNS: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
