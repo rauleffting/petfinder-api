@@ -3,8 +3,8 @@ import { makeGetPetDetailsUseCase } from '@/use-cases/factories/make-get-pet-det
 import { makeGetPhotosUseCase } from '@/use-cases/factories/make-get-photos-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import AWS from 'aws-sdk'
 import { env } from '@/env'
+import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
 interface Photo {
   id: string
@@ -44,25 +44,35 @@ export async function getPetDetails(
       organizationDetails,
     }
 
-    const s3 = new AWS.S3({
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    const client = new S3Client({
+      credentials: {
+        accessKeyId: env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      },
     })
 
     for (const photoId of photosIds) {
       const fileKey = photoId.id
-      const params = {
+
+      const command = new GetObjectCommand({
         Bucket: env.AWS_BUCKET,
         Key: fileKey,
-      }
+      })
 
-      const s3Object = await s3.getObject(params).promise()
+      try {
+        const s3Object = await client.send(command)
 
-      if (s3Object?.Body) {
-        petWithPhotos.photos.push({
-          id: fileKey,
-          url: s3Object.Body.toString('base64'),
-        })
+        if (s3Object.Body) {
+          const url = `data:image/jpeg;base64,${s3Object.Body.toString(
+            'base64',
+          )}`
+          petWithPhotos.photos.push({
+            id: fileKey,
+            url,
+          })
+        }
+      } catch (error) {
+        console.error(`Failed to retrieve object ${fileKey} from S3:`, error)
       }
     }
 

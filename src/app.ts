@@ -21,8 +21,8 @@ app.register(fastifyRedis, {
 })
 
 app.register(fastifyRateLimit, {
-  max: 10,
-  timeWindow: '5 seconds',
+  max: 100,
+  timeWindow: '1 minute',
   redis: app.redis,
 })
 
